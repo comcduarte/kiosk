@@ -14,6 +14,7 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
+        $this->layout('layout/metromega');
         return new ViewModel();
     }
 }

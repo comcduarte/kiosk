@@ -1,0 +1,44 @@
+<div class="row">
+	<div class="col-md-6">    
+        <div class="card mb-4">
+        <?php
+        $this->form->prepare();
+        echo $this->form()->openTag($form);
+        ?>
+        	<div class="card-header d-flex justify-content-between">
+        		<div>
+        			<b>Update</b>
+        		</div>
+        	</div>
+        	
+        	<div class="card-body">
+        		<?php echo $this->formCollection($this->form); ?>
+        	</div>
+        <?php echo $this->form()->closeTag($this->form); ?>
+        </div>  
+    </div>
+    <div class="col-md-6">
+    	<?php echo $this->partial('mapindex/partials/subtable.phtml', [
+    	    'title' => 'Maps', 
+    	    'data' => $this->maps, 
+    	    'primary_key' => 'UUID',
+    	    'route' => 'maps/default',
+    	    'owner_uuid' => $this->primary_key,
+    	    'params' => [
+    	        [
+    	            'key' => 'UUID_M',
+    	            'action' => 'update',
+    	            'route' => 'maps/default',
+    	            'label' => 'Update',
+    	        ],
+    	        [
+    	            'key' => 'UUID',
+    	            'action' => 'unassign',
+    	            'route' => 'maps/default',
+    	            'label' => 'Unassign',
+    	        ],
+    	    ],
+    	]); ?>
+
+    </div>
+</div>
