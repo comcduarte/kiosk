@@ -1,25 +1,27 @@
 <?php 
 namespace Application\Form\Factory;
 
+use Application\Form\SectionForm;
+use Application\Model\SectionModel;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Application\Form\HyperlinkForm;
 use Midnet\Model\Uuid;
-use Application\Model\HyperlinkModel;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
-class HyperlinkFormFactory implements FactoryInterface
+class SectionFormFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $uuid = new Uuid();
         $adapter = $container->get('hyperlink-model-primary-adapter');
         
-        $form = new HyperlinkForm($uuid->value);
+        $form = new SectionForm($uuid->value);
         
-        $model = new HyperlinkModel();
+        $model = new SectionModel();
         $form->setInputFilter($model->getInputFilter());
         $form->setDbAdapter($adapter);
         $form->initialize();
         return $form;
     }
+
+    
 }

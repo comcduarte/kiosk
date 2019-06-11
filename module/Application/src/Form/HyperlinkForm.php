@@ -2,7 +2,9 @@
 namespace Application\Form;
 
 use Zend\Db\Adapter\AdapterAwareTrait;
+use Zend\Form\Element\File;
 use Zend\Form\Element\Text;
+use Zend\Form\Element\Select;
 
 class HyperlinkForm extends AbstractBaseForm
 {
@@ -31,7 +33,6 @@ class HyperlinkForm extends AbstractBaseForm
             'attributes' => [
                 'id' => 'URL',
                 'class' => 'form-control',
-                'required' => 'true',
             ],
             'options' => [
                 'label' => 'URL',
@@ -44,7 +45,6 @@ class HyperlinkForm extends AbstractBaseForm
             'attributes' => [
                 'id' => 'ICON',
                 'class' => 'form-control',
-                'required' => 'true',
             ],
             'options' => [
                 'label' => 'Icon',
@@ -57,7 +57,6 @@ class HyperlinkForm extends AbstractBaseForm
             'attributes' => [
                 'id' => 'COLOR',
                 'class' => 'form-control',
-                'required' => 'true',
             ],
             'options' => [
                 'label' => 'Color',
@@ -66,14 +65,29 @@ class HyperlinkForm extends AbstractBaseForm
         
         $this->add([
             'name' => 'TYPE',
-            'type' => Text::class,
+            'type' => Select::class,
             'attributes' => [
                 'id' => 'TYPE',
                 'class' => 'form-control',
-                'required' => 'true',
             ],
             'options' => [
                 'label' => 'Type',
+                'value_options' => [
+                    'icon-featurecw' => 'icon-featurecw',
+                ],
+            ],
+            
+        ],['priority' => 100]);
+        
+        $this->add([
+            'name' => 'PDF',
+            'type' => File::class,
+            'attributes' => [
+                'id' => 'PDF',
+                'class' => 'form-control',
+            ],
+            'options' => [
+                'label' => 'Upload PDF',
             ],
         ],['priority' => 100]);
     }

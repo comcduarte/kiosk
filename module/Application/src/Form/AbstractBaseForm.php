@@ -35,7 +35,7 @@ class AbstractBaseForm extends Form
             'options' => [
                 'label' => 'Status',
                 'value_options' => [
-                    0 => 'Inactive',
+                    2 => 'Inactive',
                     1 => 'Active',
                 ],
             ],

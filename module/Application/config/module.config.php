@@ -7,11 +7,17 @@
 
 namespace Application;
 
+use Application\Controller\FileController;
 use Application\Controller\HyperlinkController;
+use Application\Controller\SectionController;
 use Application\Controller\Factory\HyperlinkControllerFactory;
+use Application\Controller\Factory\SectionControllerFactory;
 use Application\Form\HyperlinkForm;
+use Application\Form\SectionForm;
 use Application\Form\Factory\HyperlinkFormFactory;
+use Application\Form\Factory\SectionFormFactory;
 use Application\Service\Factory\HyperlinkModelPrimaryAdapterFactory;
+use Application\View\Helper\Functions;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -63,17 +69,55 @@ return [
                     ],
                 ],
             ],
+            'pdf' => [
+                'type' => Segment::class,
+                'priority' => 10,
+                'options' => [
+                    'route' => '/pdf/:uuid',
+                    'defaults' => [
+                        'controller' => FileController::class,
+                        'action' => 'display',
+                    ],
+                ],
+            ],
+            'sections' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route' => '/sections',
+                    'defaults' => [
+                        'controller' => SectionController::class,
+                        'action' => 'index',
+                    ],
+                ],
+                'may_terminate' => TRUE,
+                'child_routes' => [
+                    'default' => [
+                        'type' => Segment::class,
+                        'priority' => -100,
+                        'options' => [
+                            'route' => '/[:action[/:uuid]]',
+                            'defaults' => [
+                                'action' => 'index',
+                                'controller' => SectionController::class,
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => Controller\Factory\IndexControllerFactory::class,
+            FileController::class => InvokableFactory::class,
             HyperlinkController::class => HyperlinkControllerFactory::class,
+            SectionController::class => SectionControllerFactory::class,
         ],
     ],
     'form_elements' => [
         'factories' => [
             HyperlinkForm::class => HyperlinkFormFactory::class,
+            SectionForm::class => SectionFormFactory::class,
         ],
     ],
     'navigation' => [
@@ -89,13 +133,25 @@ return [
                         'action' => 'create'
                     ],
                     [
-                        'label' => 'Search Links',
-                        'route' => 'links/default',
-                        'action' => 'search',
-                    ],
-                    [
                         'label' => 'View Links',
                         'route' => 'links/default',
+                        'action' => 'index',
+                    ],
+                ],
+            ],
+            [
+                'label' => 'Sections',
+                'route' => 'sections',
+                'class' => 'dropdown',
+                'pages' => [
+                    [
+                        'label' => 'Add New Section',
+                        'route' => 'sections/default',
+                        'action' => 'create'
+                    ],
+                    [
+                        'label' => 'View Sections',
+                        'route' => 'sections/default',
                         'action' => 'index',
                     ],
                 ],
@@ -108,6 +164,14 @@ return [
         ],
         'factories' => [
             'hyperlink-model-primary-adapter' => HyperlinkModelPrimaryAdapterFactory::class,
+        ],
+    ],
+    'view_helpers' => [
+        'aliases' => [
+            'functions' => Functions::class,
+        ],
+        'factories' => [
+            Functions::class => InvokableFactory::class,
         ],
     ],
     'view_manager' => [

@@ -24,7 +24,9 @@ class IndexController extends AbstractActionController
         
         $model = new HyperlinkModel($this->adapter);
         
-        $data = $model->fetchAll(new Where());
+        $predicate = new Where();
+        $predicate->equalTo('STATUS', $model::ACTIVE_STATUS);
+        $data = $model->fetchAll($predicate);
         $view->setVariable('data', $data);
         
         return ($view);
