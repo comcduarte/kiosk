@@ -7,7 +7,6 @@ use Midnet\Model\Uuid;
 use Zend\Db\Sql\Delete;
 use Zend\Db\Sql\Insert;
 use Zend\Db\Sql\Sql;
-use const Zend\Validator\NotEmpty\NULL;
 
 class SectionModel extends DatabaseObject
 {

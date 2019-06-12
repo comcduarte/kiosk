@@ -1,6 +1,7 @@
 <?php 
 namespace Application\Controller;
 
+use Midnet\Exception\Exception;
 use Zend\Mvc\Controller\AbstractActionController;
 
 class FileController extends AbstractActionController
@@ -12,7 +13,7 @@ class FileController extends AbstractActionController
         
         // Validate input parameters
         if (empty($uuid) || strlen($uuid)>36) {
-            throw new \Exception('UUID is empty or too long');
+            throw new Exception('UUID is empty or too long');
         }
         $fileName = "./data/pdf/$uuid.pdf";
         
