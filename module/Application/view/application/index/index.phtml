@@ -1,17 +1,21 @@
+<?php foreach ($this->data as $section => $records) : ?>
 <!-- SECTION -->
 <section class="clearfix section" id="start">
+	
 	<!-- SECTION TITLE -->
-    <h3 class="block-title">Applications</h3>
+    <h3 class="block-title"><?=$section?></h3>
     <!-- /SECTION TITLE -->
 
-	<?php foreach ($this->data as $record) : ?>
-    <!-- SECTION TILES -->
-    <div class="tile <?=$record['COLOR']?> w2 h1 <?=$record['TYPE']?>">
-        <a class="link" href="<?=$record['URL']?>">
-            <i class="<?=$record['ICON']?>"></i>
-            <p class="title"><?=$record['CAPTION']?></p>
-        </a>
-    </div>
-	<?php endforeach; ?>
+    	<?php foreach ($records as $record) : ?>
+        <!-- SECTION TILES -->
+        <div class="tile <?=$record['COLOR']?> w2 h1 <?=$record['TYPE']?>">
+            <a class="link" href="<?=$record['URL']?>">
+                <i class="<?=$record['ICON']?>"></i>
+                <p class="title"><?=$record['CAPTION']?></p>
+            </a>
+        </div>
+        <?php endforeach; ?>
+	
 </section>
 <!-- /SECTION -->
+<?php endforeach; ?>
