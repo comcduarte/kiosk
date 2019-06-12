@@ -36,7 +36,6 @@ class SectionController extends AbstractBaseController
             'data' => $links,
             'primary_key' => 'UUID',
             'route' => 'links/default',
-//             'owner_uuid' => $this->primary_key,
             'params' => [
                 [
                     'key' => 'UUID_L',

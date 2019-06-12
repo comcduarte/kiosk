@@ -18,27 +18,6 @@
         </div>  
     </div>
     <div class="col-md-6">
-    	<?php echo $this->partial('application/partials/subtable.phtml', [
-    	    'title' => 'Maps', 
-    	    'data' => $this->maps, 
-    	    'primary_key' => 'UUID',
-    	    'route' => 'maps/default',
-    	    'owner_uuid' => $this->primary_key,
-    	    'params' => [
-    	        [
-    	            'key' => 'UUID_M',
-    	            'action' => 'update',
-    	            'route' => 'maps/default',
-    	            'label' => 'Update',
-    	        ],
-    	        [
-    	            'key' => 'UUID',
-    	            'action' => 'unassign',
-    	            'route' => 'maps/default',
-    	            'label' => 'Unassign',
-    	        ],
-    	    ],
-    	]); ?>
-
+    	<?php echo $this->partial('application/partials/subtable.phtml', $this->subtable_params); ?>
     </div>
 </div>
