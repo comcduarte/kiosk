@@ -40,6 +40,7 @@ class IndexController extends AbstractActionController
         $predicate = new Where();
         $predicate->equalTo('links.STATUS', $model::ACTIVE_STATUS);
         $select->where($predicate);
+        $select->order(['sections.PRIORITY', 'links.PRIORITY']);
         
         $statement = $sql->prepareStatementForSqlObject($select);
         $resultSet = new ResultSet();

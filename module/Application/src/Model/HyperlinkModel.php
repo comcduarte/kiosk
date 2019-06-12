@@ -20,6 +20,7 @@ class HyperlinkModel extends DatabaseObject
     public $ICON;
     public $COLOR;
     public $TYPE;
+    public $PRIORITY;
     
     public function __construct($dbAdapter = null)
     {

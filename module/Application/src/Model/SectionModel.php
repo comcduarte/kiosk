@@ -11,6 +11,7 @@ use Zend\Db\Sql\Sql;
 class SectionModel extends DatabaseObject
 {
     public $NAME;
+    public $PRIORITY;
     
     public function __construct($dbAdapter = null)
     {

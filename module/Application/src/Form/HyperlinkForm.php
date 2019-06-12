@@ -80,6 +80,18 @@ class HyperlinkForm extends AbstractBaseForm
         ],['priority' => 100]);
         
         $this->add([
+            'name' => 'PRIORITY',
+            'type' => Text::class,
+            'attributes' => [
+                'id' => 'PRIORITY',
+                'class' => 'form-control',
+            ],
+            'options' => [
+                'label' => 'Priority',
+            ],
+        ],['priority' => 100]);
+        
+        $this->add([
             'name' => 'PDF',
             'type' => File::class,
             'attributes' => [

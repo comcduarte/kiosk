@@ -24,5 +24,17 @@ class SectionForm extends AbstractBaseForm
                 'label' => 'Section Name',
             ],
         ],['priority' => 100]);
+        
+        $this->add([
+            'name' => 'PRIORITY',
+            'type' => Text::class,
+            'attributes' => [
+                'id' => 'PRIORITY',
+                'class' => 'form-control',
+            ],
+            'options' => [
+                'label' => 'Priority',
+            ],
+        ],['priority' => 100]);
     }
 }

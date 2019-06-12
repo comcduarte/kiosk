@@ -106,6 +106,19 @@ return [
             ],
         ],
     ],
+    'acl' => [
+        'guest' => [
+            'pdf' => ['display'],
+            'home' => ['index'],
+        ],
+        'member' => [
+            'home' => ['index'],
+            'links' => ['index'],
+            'links/default' => ['index','create','update','delete'],
+            'sections/default' => ['index','create','update','delete','assign','unassign'],
+            'pdf' => ['display'],
+        ],
+    ],
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => Controller\Factory\IndexControllerFactory::class,
@@ -181,7 +194,7 @@ return [
         'not_found_template'       => 'error/404',
         'exception_template'       => 'error/index',
         'template_map' => [
-            'layout/layout'           => __DIR__ . '/../../Midnet/view/layout/layout.phtml',
+            'layout/layout'           => __DIR__ . '/../../User/view/layout/layout.phtml',
             'layout/metromega'        => __DIR__ . '/../view/layout/metromega.phtml',
             'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
