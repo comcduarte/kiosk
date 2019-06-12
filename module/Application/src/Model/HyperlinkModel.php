@@ -1,11 +1,17 @@
 <?php 
 namespace Application\Model;
 
+use Midnet\Exception\Exception;
 use Midnet\Model\DatabaseObject;
+use Midnet\Model\Uuid;
+use Zend\Db\Sql\Delete;
+use Zend\Db\Sql\Insert;
+use Zend\Db\Sql\Sql;
 use Zend\Filter\StringTrim;
 use Zend\Filter\StripTags;
 use Zend\InputFilter\FileInput;
 use Zend\InputFilter\InputFilter;
+use const Zend\Validator\NotEmpty\NULL;
 
 class HyperlinkModel extends DatabaseObject
 {
@@ -21,6 +27,63 @@ class HyperlinkModel extends DatabaseObject
         
         $this->primary_key = 'UUID';
         $this->table = 'links';
+    }
+    
+    public function assign($section_uuid)
+    {
+        $sql = new Sql($this->dbAdapter);
+        $uuid = new Uuid();
+        
+        $columns = [
+            'UUID',
+            'LINK',
+            'SECTION',
+        ];
+        
+        $values = [
+            $uuid->value,
+            $this->UUID,
+            $section_uuid,
+        ];
+        
+        $insert = new Insert();
+        $insert->into('section_links');
+        $insert->columns($columns);
+        $insert->values($values);
+        
+        $statement = $sql->prepareStatementForSqlObject($insert);
+        
+        try {
+            $statement->execute();
+        } catch (Exception $e) {
+            return $e;
+        }
+        return $this;
+    }
+    
+    public function unassign($section_uuid = NULL, $join_uuid = NULL)
+    {
+        $sql = new Sql($this->dbAdapter);
+        
+        $delete = new Delete();
+        $delete->from('section_links');
+        
+        if ($section_uuid != NULL ) {
+            $delete->where(['LINK' => $this->UUID, 'SECTION' => $section_uuid]);
+        }
+        
+        if ($join_uuid != NULL) {
+            $delete->where(['UUID' => $join_uuid]);
+        }
+        
+        $statement = $sql->prepareStatementForSqlObject($delete);
+        
+        try {
+            $statement->execute();
+        } catch (Exception $e) {
+            return $e;
+        }
+        return $this;
     }
     
     public function getInputFilter()

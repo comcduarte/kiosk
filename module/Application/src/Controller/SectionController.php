@@ -6,6 +6,7 @@ use Zend\Db\Sql\Join;
 use Zend\Db\Sql\Select;
 use Zend\Db\Sql\Sql;
 use Zend\Db\Sql\Predicate\Like;
+use Application\Form\SectionAssignmentForm;
 
 class SectionController extends AbstractBaseController
 {
@@ -46,7 +47,7 @@ class SectionController extends AbstractBaseController
 //                 [
 //                     'key' => 'UUID',
 //                     'action' => 'unassign',
-//                     'route' => 'maps/default',
+//                     'route' => 'links/default',
 //                     'label' => 'Unassign',
 //                 ],
             ],
@@ -55,5 +56,33 @@ class SectionController extends AbstractBaseController
         $view->setVariable('subtable_params', $subtable_params);
         
         return ($view);
+    }
+    
+    public function assignAction()
+    {
+        $form = new SectionAssignmentForm('SECTION_ASSIGN_FORM');
+        
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $form->setData($request->getPost());
+            
+            if ($form->isValid()) {
+                $data = $request->getPost();
+                $this->model->read(['UUID' => $data['SECTION']])->assign($data['LINK']);
+                
+                $this->flashmessenger()->addSuccessMessage('Successfully assigned hyperlink to section');
+            }
+        }
+        
+        $url = $this->getRequest()->getHeader('Referer')->getUri();
+        return $this->redirect()->toUrl($url);
+    }
+    
+    public function unassignAction()
+    {
+        $join_uuid = $this->params()->fromRoute('uuid',0);
+        $this->model->unassign(NULL, $join_uuid);
+        $url = $this->getRequest()->getHeader('Referer')->getUri();
+        return $this->redirect()->toUrl($url);
     }
 }
