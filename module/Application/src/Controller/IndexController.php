@@ -27,6 +27,8 @@ class IndexController extends AbstractActionController
         $view = new ViewModel();
         $this->layout('layout/metromega');
         
+        $section = $this->params()->fromRoute('section','%');
+        
         $model = new HyperlinkModel($this->adapter);
        
         /*******************************/
@@ -37,8 +39,11 @@ class IndexController extends AbstractActionController
         $select->from('section_links')
             ->join('links', 'section_links.LINK = links.UUID', ['*'], Join::JOIN_INNER)
             ->join('sections', 'section_links.SECTION = sections.UUID', ['UUID_S'=>'UUID', 'Name' => 'NAME'], Join::JOIN_INNER);
+        
         $predicate = new Where();
         $predicate->equalTo('links.STATUS', $model::ACTIVE_STATUS);
+        $predicate->like('sections.UUID', $section);
+        
         $select->where($predicate);
         $select->order(['sections.PRIORITY', 'links.PRIORITY']);
         

@@ -26,9 +26,9 @@ return [
     'router' => [
         'routes' => [
             'home' => [
-                'type' => Literal::class,
+                'type' => Segment::class,
                 'options' => [
-                    'route'    => '/',
+                    'route'    => '/[:section]',
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
                         'action'     => 'index',
