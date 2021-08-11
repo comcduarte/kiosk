@@ -1,12 +1,12 @@
-[submodule "module\\Midnet"]
-	path = module\\Midnet
+[submodule "module/Midnet"]
+	path = module/Midnet
 	url = https://github.com/comcduarte/midnetModule.git
 [submodule "module/Acl"]
 	path = module/Acl
 	url = https://github.com/comcduarte/aclModule.git
-[submodule "module\\User"]
-	path = module\\User
+[submodule "module/User"]
+	path = module/User
 	url = https://github.com/comcduarte/userModule.git
-[submodule "module\\Annotation"]
-	path = module\\Annotation
+[submodule "module/Annotation"]
+	path = module/Annotation
 	url = https://github.com/comcduarte/annotationModule.git

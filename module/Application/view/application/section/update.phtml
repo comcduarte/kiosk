@@ -7,7 +7,7 @@
         ?>
         	<div class="card-header d-flex justify-content-between">
         		<div>
-        			<b>Search</b>
+        			<b>Update</b>
         		</div>
         	</div>
         	
@@ -18,19 +18,6 @@
         </div>  
     </div>
     <div class="col-md-6">
-    	<?php echo $this->partial('application/partials/subtable.phtml', [
-    	    'title' => 'Owners', 
-    	    'data' => $this->data, 
-    	    'primary_key' => 'UUID',
-    	    'params' => [
-    	        [
-    	            'key' => 'UUID',
-    	            'action' => 'update',
-    	            'route' => 'owners/default',
-    	            'label' => 'Update',
-    	        ],
-    	    ],
-    	]); ?>
-
+    	<?php echo $this->partial('application/partials/subtable.phtml', $this->subtable_params); ?>
     </div>
 </div>
